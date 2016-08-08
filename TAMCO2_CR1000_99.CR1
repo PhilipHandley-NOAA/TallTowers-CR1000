@@ -237,13 +237,13 @@ Alias PA_PICARROSERIAL(12) = PS12_PSY
 
 'Define Data Tables
 
-DataTable (lbt_test,-1,-1)
+DataTable (lab_test,-1,-1)
 		DataInterval (25,30,Sec,10)
  		Average (1,PV_CO2ESTIMATE,IEEE4,FALSE)
  		Average (1,PV_COESTIMATE,IEEE4,FALSE)
 EndTable
 
-DataTable (lbt_raw,-1,-1)
+DataTable (lab_raw,-1,-1)
 	DataInterval (25,30,Sec,10)
 	Sample (1,PV_SYSMODE,UINT2)
   Sample (1,PV_SYSMODECO2,UINT2)
@@ -338,6 +338,24 @@ If PV_CALMODE = 2 Then
       PV_SYSMODE = 1323
     Case 4 To 100 
       PV_SYSMODE = 1426
+      PV_CALMODE = 0
+      PV_CALCOUNT = 0
+  EndSelect
+EndIf
+
+If PV_CALMODE = 3 Then
+  PV_CALCOUNT = PV_CALCOUNT + 1
+    Select Case PV_CALCOUNT
+    Case 1 
+      PV_SYSMODE = 1121
+    Case 2
+      PV_SYSMODE = 1222
+    Case 3
+      PV_SYSMODE = 1323
+    Case 4
+      PV_SYSMODE = 1426
+    Case 5 To 100
+      PV_SYSMODE = 1526
       PV_CALMODE = 0
       PV_CALCOUNT = 0
   EndSelect
@@ -683,7 +701,7 @@ EndIf
 
 PV_COESTIMATE = TC_CORAW*PV_MLIN_CO + PV_BLIN_CO + (PV_LASTCOZERO - PV_COCALZERO)
 
-CallTable lbt_raw
+CallTable lab_raw
 'CallTable bao_test
 		'CallTable lbt_afs
 
