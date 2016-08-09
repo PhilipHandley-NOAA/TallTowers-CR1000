@@ -26,6 +26,7 @@ Public PV_SYSMODECO2 As Long
 Public PV_SYSMODECO As Long
 Public PV_SMCOUNTCO2 As Long
 Public PV_SMCOUNTCO As Long
+Public PV_BASELINECALMODE As Long
 
 Public PV_SYSMODECO_OLD As Long
 Public PV_SYSMODECO2_OLD As Long
@@ -51,9 +52,9 @@ Public SDMAO4OUT(4) As Float
 Public LC_AOBCO2 As Float
 Public LC_AOBH2O As Float
 
-Public CRXD3_LIBXPR
-Public CRXD4_TROOM
-Public CRXD5_PAR
+Public CRX3D_LIBXPR_1
+Public CRX4D_TROOM
+Public CRX5D_PAR
 Public CRXP1_RAIN 
 
 Public PA_5MMODS(20) As Long
@@ -113,7 +114,7 @@ Public COAVGX, COAVGY, COSXX, COSXY As Float
 Public PV_MLIN_CO As Float
 Public PV_BLIN_CO As Float
 Public PV_COCALZERO As Float
-Public LA_LGRSERIAL(10) As Float
+
 
 
 Public x As Float
@@ -157,7 +158,7 @@ Alias PA_MUX1(6) = M1D6_COFLOW
 Alias PA_MUX1(7) = M1D7_COPRESS
 Alias PA_MUX1(8) = M1D8_TECOMSET
 Alias PA_MUX1(9) = M1D9_TECOMTMP
-Alias PA_MUX1(10) = M1D10_TECVRH
+Alias PA_MUX1(10) = M1D10_TECOVRH
 Alias PA_MUX1(11) = M1D11_TECOVTMP
 Alias PA_MUX1(12) = M1D12_LIQALMF1
 Alias PA_MUX1(13) = M1D13_BPR1
@@ -186,16 +187,16 @@ Alias PA_MUX2(2) = M2D2_NAFWTLWT
 Alias PA_MUX2(3) = M2D3_NAFLM35T
 Alias PA_MUX2(4) = M2D4_MANDCTMP
 Alias PA_MUX2(5) = M2D5_PUMPBXTMP
-Alias PA_MUX2(6) = M2D6_M2SPARE6
+Alias PA_MUX2(6) = M2D6_PICFLOW
 Alias PA_MUX2(7) = M2D7_M2SPARE7
 Alias PA_MUX2(8) = M2D8_M2SPARE8
 Alias PA_MUX2(9) = M2D9_FLSKFLOW
 Alias PA_MUX2(10) = M2D10_FLSKPRES
 Alias PA_MUX2(11) = M2D11_TECOVTMP
 Alias PA_MUX2(12) = M2D12_M2SPARE12
-Alias PA_MUX2(13) = M2D13_M2SPARE13
-Alias PA_MUX2(14) = M2D14_M2SPARE14
-Alias PA_MUX2(15) = M2D15_M2SPARE15
+Alias PA_MUX2(13) = M2D13_PRESL1
+Alias PA_MUX2(14) = M2D14_PRESL2
+Alias PA_MUX2(15) = M2D15_PRESL3
 Alias PA_MUX2(16) = M2D16_M2SPARE16
 Alias PA_MUX2(17) = M2D17_M2SPARE17
 Alias PA_MUX2(18) = M2D18_M2SPARE18
@@ -219,6 +220,7 @@ Alias SDMAO4OUT(2) = SDMAO42_CO2PRES
 Alias SDMAO4OUT(3) = SDMAO43_COFLOW
 Alias SDMAO4OUT(4) = SDMAO44_COPRES
 
+'generic
 'Alias PA_PICARROSERIAL(1) = PS1_PSCAVPRESS
 'Alias PA_PICARROSERIAL(2) = PS2_PSCAVTEMPC
 'Alias PA_PICARROSERIAL(3) = PS3_PSCO
@@ -232,25 +234,30 @@ Alias SDMAO4OUT(4) = SDMAO44_COPRES
 'Alias PA_PICARROSERIAL(11) = PS11_PSX
 'Alias PA_PICARROSERIAL(12) = PS12_PSY
 
-Alias PA_PICARROSERIAL(1) = PS3_PSCO 
-Alias PA_PICARROSERIAL(2) = PS4_PSCO2 
-Alias PA_PICARROSERIAL(3) = PS1_PSCAVPRESS
-Alias PA_PICARROSERIAL(4) = PS2_PSCAVTEMPC
-Alias PA_PICARROSERIAL(5) = PS8_PSH2O
-Alias PA_PICARROSERIAL(6) = PS7_PSOUTVALVE 
-Alias PA_PICARROSERIAL(7) = PS9_PSBH2OPCT 
-Alias PA_PICARROSERIAL(8) = PS10_PSPEAK84
+'WGC picaroo
+Alias PA_PICARROSERIAL(1) = PS1_1DSJAN
+Alias PA_PICARROSERIAL(2) = PS2_2PSCAVTEMPC
+Alias PA_PICARROSERIAL(3) = PS3_3CAVPRESS
+Alias PA_PICARROSERIAL(4) = PS4_4ENVTEMP
+Alias PA_PICARROSERIAL(5) = PS5_6OUTVALVE
+Alias PA_PICARROSERIAL(6) = PS6_10_CO2
+Alias PA_PICARROSERIAL(7) = PS7_11_CO2WCOR
+Alias PA_PICARROSERIAL(8) = PS8_12_CH4
+Alias PA_PICARROSERIAL(9) = PS9_13_H2O
+Alias PA_PICARROSERIAL(10) = PS10_SPARE
+'Alias PA_PICARROSERIAL(11) = PS11_PSX
+'Alias PA_PICARROSERIAL(12) = PS12_PSY
 
-Alias LA_LGRSERIAL(1) = PS1_PS1
-Alias LA_LGRSERIAL(2) = PS2_PS2
-Alias LA_LGRSERIAL(3) = PS3_PS3
-Alias LA_LGRSERIAL(4) = PS4_PS4
-Alias LA_LGRSERIAL(5) = PS5_PS5
-Alias LA_LGRSERIAL(6) = PS6_PS6
-Alias LA_LGRSERIAL(7) = PS7_PS7
-Alias LA_LGRSERIAL(8) = PS8_PS8
-Alias LA_LGRSERIAL(9) = PS9_PS9
-Alias LA_LGRSERIAL(10) = PS10_PS10
+
+
+
+
+
+
+
+
+
+
 
  
 'Declare Other Variables'Example:'Dim Counter
@@ -259,13 +266,15 @@ Alias LA_LGRSERIAL(10) = PS10_PS10
 
 'Define Data Tables
 
-DataTable (lab_test,-1,-1)
-		DataInterval (25,30,Sec,10)
- 		Average (1,PV_CO2ESTIMATE,IEEE4,FALSE)
- 		Average (1,PV_COESTIMATE,IEEE4,FALSE)
-EndTable
+'DataTable (amt_pic,-1,-1)
+'		DataInterval (25,30,Sec,10)
+'		Average (1,PV_SYSMODE,FP2,False)
+' 		Average (9,PA_PICARROSERIAL(1),IEEE4,FALSE)
+' 		StdDev (4,PA_PICARROSERIAL(6),IEEE4,FALSE)
 
-DataTable (lab_raw,-1,-1)
+'EndTable
+
+DataTable (amt_raw,-1,-1)
 	DataInterval (25,30,Sec,10)
 	Sample (1,PV_SYSMODE,UINT2)
   Sample (1,PV_SYSMODECO2,UINT2)
@@ -279,23 +288,25 @@ DataTable (lab_raw,-1,-1)
   Average (1,PV_SMCOUNTCO,FP2,False)
   Average (32,M1D1_CO2FLOW,fp2,False) ' mux 1
   Average (5,PA_MUX2(1),fp2,False) ' mux 2sys
-  Average (1,CRXD3_LIBXPR,FP2,FALSE)
-  Average (1,CRXD4_TROOM,FP2,FALSE)
-  Average (1,CRXD5_PAR,FP2,FALSE)
+  Average (1,CRX3D_LIBXPR_1,FP2,FALSE)
+  Average (1,CRX4D_TROOM,FP2,FALSE)
+  Average (1,CRX5D_PAR,FP2,FALSE)
   Totalize (1,CRXP1_RAIN,fp2,False) ' CR1000 BOARD SIGNALS
   Average (11,PA_LICORSERIAL(1),IEEE4,False)
   Average (1,LC_AOBCO2,IEEE4,False)
   Average (1,LC_AOBH2O,IEEE4,False)
   Average (1,TC_CORAW,IEEE4,FALSE)
-  StdDev (1,TC_CORAW,IEEE4,FALSE)
   StdDev (1,LS3_CO2RAW,IEEE4,False)
-  Average (2,PA_MUX2(9),fp2,False) ' mux 2
-'LGR
-  Average (4,LA_LGRSERIAL(1),IEEE4,FALSE)
-  StdDev (1,LA_LGRSERIAL(4),IEEE4,FALSE)
-  Average (1,LA_LGRSERIAL(6),IEEE4,FALSE)
-  StdDev (1,LA_LGRSERIAL(6),IEEE4,FALSE) 
-  Average (3,LA_LGRSERIAL(8),IEEE4,FALSE)  
+  StdDev (1,TC_CORAW,IEEE4,FALSE)
+
+  Average (2,PA_MUX2(9),fp2,False)
+
+
+
+  Average (3,M2D13_PRESL1,IEEE4,FALSE)
+ ' mux 2
+
+
 
 
 '  Average (10,PA_PICARROSERIAL(1),IEEE4,false)
@@ -303,13 +314,13 @@ DataTable (lab_raw,-1,-1)
 '  StdDev (1,PA_PICARROSERIAL(5),IEEE4,false)
 '  StdDev (1,PA_PICARROSERIAL(7),IEEE4,false)
 '  StdDev (1,PA_PICARROSERIAL(8),IEEE4,false)
-    
-'PICARRO
-  Average (8,PA_PICARROSERIAL(1),IEEE4,false)
-  StdDev (1,PA_PICARROSERIAL(1),IEEE4,false)
-  StdDev (1,PA_PICARROSERIAL(2),IEEE4,false)
-  StdDev (1,PA_PICARROSERIAL(7),IEEE4,false)
-  StdDev (1,PA_PICARROSERIAL(8),IEEE4,false)
+
+
+
+
+
+
+
   
 EndTable
 
@@ -336,7 +347,7 @@ If PV_CALMODE = 0 Then
     Case 6
       PV_SYSMODE = PV_MOD7STEP7
   EndSelect
-  If PV_5MMOD28 = 20 Then PV_SYSMODE = 1226
+  If PV_5MMOD28 = 20 Then PV_SYSMODE = PV_BASELINECALMODE  '1226  ##########  now 2326
 EndIf
 
 Select Case PV_5MMOD240
@@ -380,23 +391,23 @@ If PV_CALMODE = 2 Then
   EndSelect
 EndIf
 
-If PV_CALMODE = 3 Then
-  PV_CALCOUNT = PV_CALCOUNT + 1
-    Select Case PV_CALCOUNT
-    Case 1 
-      PV_SYSMODE = 1121
-    Case 2
-      PV_SYSMODE = 1222
-    Case 3
-      PV_SYSMODE = 1323
-    Case 4
-      PV_SYSMODE = 1426
-    Case 5 To 100
-      PV_SYSMODE = 1526
-      PV_CALMODE = 0
-      PV_CALCOUNT = 0
-  EndSelect
-EndIf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 If PV_SYSMODESUB = -1 Then
   For I=1 To 10
@@ -491,6 +502,7 @@ EndSub
 	'Main Program
 BeginProg
 
+
 PV_C1VALUE = 353.05
 PV_C2VALUE = 381.53
 PV_C3VALUE = 407.72
@@ -499,11 +511,12 @@ PV_COLVALUE = 91.55
 PV_COHVALUE = 335.5
 PV_COTVALUE = 224.8
 
-PV_FLASKSAMPLE_SINTODAY1 = 75900 '
+PV_FLASKSAMPLE_SINTODAY1 = 69300 
 PV_FLASKSAMPLE_SINTODAY2 = 99999 
 PV_FLASKDWELLSYSMODE = 2323 '
 PV_FLASKDWELL5MININTERVALS = 6 ' 1800 = 30 MINUTES
-PV_FLASKFREQ = 2 '
+PV_FLASKFREQ = 1 '1-everyotherday, 2-everyday
+
 
 SDMAO41_CO2FLOW = 2500.0
 SDMAO42_CO2PRES = 3850.0
@@ -516,19 +529,21 @@ PV_MOD7STEP4 = 2121
 PV_MOD7STEP5 = 2222
 PV_MOD7STEP6 = 2323
 PV_MOD7STEP7 = 2326
+PV_BASELINECALMODE = 2326  '#################
 
 PV_CALMODE = 0
 PA_FLAG(4) = -1
 PA_FLAG(1) = -1
+PV_PICARRODATAEXISTS = 0 ' WGC ONLY
 
 
 	Scan (5,Sec,0,0)
 
-    SDMSIO4(PA_DUMMY(),1,8,4,1024,50,0,1,1.0,0) ' "CO" FOR LGR
+
 		SDMSIO4(PA_DUMMY(),1,8,5,3,0,0,1,1.0,0) ' flush all buffers
 	  SDMSIO4(PA_DUMMY(),1,8,2,1024,21,0,1,1.0,0) ' "(RS232(PollNow))"
 		SDMSIO4(PA_DUMMY(),1,8,2,1025,10,0,1,1.0,0) ' licor line feed termination character
-		SDMSIO4(PA_DUMMY(),1,8,3,2305,176,999,0,1.0,0) ' TecoLeadingdentifier
+		SDMSIO4(PA_DUMMY(),1,8,3,2305,176,999,0,1.0,0) ' TecoLeadingIdentifier
 		SDMSIO4(PA_DUMMY(),1,8,3,1024,50,0,1,1.0,0) ' "CO" to teco
 	  SDMSIO4(PA_DUMMY(),1,8,3,1025,13,0,1,1.0,0) ' termination line feed to teco
 		SDMSIO4(PA_DUMMY(),1,8,3,1025,10,0,1,1.0,0) ' termination line feed to teco
@@ -619,11 +634,11 @@ PA_FLAG(1) = -1
     
        'do this if flag 4 is high (set up the serial communications)
     If PA_FLAG(4) = -1 Then
-       
-       SDMSIO4(PA_DUMMY(),1,8,4,2049,9146,0,0,1.0,0) ' LGR 9600 BAUD
-       SDMSIO4(PA_DUMMY(),1,8,4,2054,1999,0,0,1.0,0) ' receive filter...licor convert ascii number to csfloating point
-       
-       SDMSIO4(PA_DUMMY(),1,8,1,2049,9146,0,0,1.0,0) ' PIARRO 19200 BAUD
+
+       'SDMSIO4(PA_DUMMY(),1,8,1,2049,9147,0,0,1.0,0) ' PIARRO 19200 BAUD
+
+
+       SDMSIO4(PA_DUMMY(),1,8,1,2049,6,0,0,1.0,0) ' PIARRO 19200 BAUD
        SDMSIO4(PA_DUMMY(),1,8,1,2054,1999,0,0,1.0,0) ' receive filter...licor convert ascii number to csfloating point
        
        SDMSIO4(PA_DUMMY(),1,8,2,2049,4146,0,0,1.0,0) ' Licor is xon/xoff/9600,8,1
@@ -666,9 +681,9 @@ PA_FLAG(1) = -1
     Next J  
     PortSet(5,0) 
     PortSet(6,0)
-    VoltDiff(CRXD3_LIBXPR,1,mv5000,3,0,0,0,-2.0,0)
-    VoltDiff(CRXD4_TROOM,1,mv2500,4,0,0,0,1,0)
-    VoltDiff(CRXD5_PAR,1,mV25C,5,0,0,0,1,0)
+    VoltDiff(CRX3D_LIBXPR_1,1,mv5000,3,0,0,0,-2.0,0)
+    VoltDiff(CRX4D_TROOM,1,mv2500,4,0,0,0,1,0)
+    VoltDiff(CRX5D_PAR,1,mV250,5,0,0,0,1,0)
     PulseCount(CRXP1_RAIN,1,1 ,2,0,1,0)
      
     'read and process licor and TECO data0.
@@ -676,8 +691,8 @@ PA_FLAG(1) = -1
 
 SDMSIO4 (PA_LICORSERIAL(),1,8,2,4,0,0,11,1.0,0) 
 SDMSIO4 (PA_TECOSERIAL(),1,8,3,4,0,0,4,1.0,0)
-SDMSIO4 (PA_PICARROSERIAL(),1,8,1,4,0,0,10,1.0,0)
-SDMSIO4 (LA_LGRSERIAL(),1,8,4,4,0,0,10,1.0,0)
+SDMSIO4 (PA_PICARROSERIAL(),1,8,1,4,0,0,9,1.0,0)
+
 
 If PV_PICARRODATAEXISTS = False Then
    For J  = 1 To 12 
@@ -745,7 +760,8 @@ EndIf
 
 PV_COESTIMATE = TC_CORAW*PV_MLIN_CO + PV_BLIN_CO + (PV_LASTCOZERO - PV_COCALZERO)
 
-CallTable lab_raw
+CallTable amt_raw
+'CallTable wgc_pic
 'CallTable bao_test
 		'CallTable lbt_afs
 
